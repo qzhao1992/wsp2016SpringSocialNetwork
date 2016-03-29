@@ -21,8 +21,9 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    
     <resource-ref>
-        <res-ref-name>jdbc/db6</res-ref-name>
+        <res-ref-name>jdbc/db1</res-ref-name>
         <res-type>javax.sql.ConnectionPoolDataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
