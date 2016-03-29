@@ -4,10 +4,69 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <title>Facelet Title</title>
+        <style type="text/css">
+            
+            
+            div.solidGrayBorder {
+            width: 320px;
+            padding: 10px;
+            border: 3px ridge #579ec2;
+            margin: 0;
+            }
+            
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 8px 18px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+            
+            .button1 {
+                background-color: #4CAF50;
+                color: white;
+                border: 2px solid #4CAF50;
+            }
+
+            .button1:hover {
+                background-color: white; 
+                color: black;
+                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+            }
+            
+            
+        </style>
+        
     </h:head>
     <h:body>
-        This is Qing<br/>
-        This is Justin<br/>
+        <div align="center">
+            <div  class="solidGrayBorder">
+                <div align="center" style="color:#74c8f2" margin="0" > <h2>Login</h2></div>
+            <h:form>
+                <h:panelGrid columns="2" style="margin: 0 auto" bgcolor="#74c8f2">
+                    Username:
+                    <h:inputText id="userName" value="#{loginBean.personInfoUserName}"></h:inputText>
+                    
+                    Password:
+                    <h:inputSecret id="password" value="#{loginBean.personInfoPassword}"></h:inputSecret>
+                    
+                    <h:commandButton  action="#{loginBean.pressLoginButton()}" value="Login" 
+                                       class="button button1"></h:commandButton>
+                        
+                    <h:button value="Sign up" class="button button1"></h:button>
+                   
+                </h:panelGrid>
+            </h:form>
+            </div>
+        
+        </div>
         
     </h:body>
 </html>
