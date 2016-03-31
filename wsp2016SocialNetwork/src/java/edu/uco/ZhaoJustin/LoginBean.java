@@ -23,7 +23,7 @@ public class LoginBean implements Serializable {
     private PersonInfo personInfo;
     private List<PersonInfo> listPersonInfo;
     
-    @Resource(name="jdbc/db6")
+    @Resource(name="jdbc/db1")
     private DataSource ds;
     
     boolean check;
@@ -123,10 +123,13 @@ public class LoginBean implements Serializable {
     }
     
     public String pressLoginButton() throws SQLException{
+
         addToListPInfo();
         CheckPasswordAndUserName();
         if(CheckPasswordAndUserName()){
             return "MainPage.xhtml";
+
+
         }
         else return "index.xhtml";
         

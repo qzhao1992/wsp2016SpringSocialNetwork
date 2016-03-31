@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Home</title>
+        <h:outputStylesheet library="styles" name="wspFinal.css"/>
+        <h:outputScript library="scripts" name="wspFinal.js"/>
+    </h:head>
+    <h:body>
+        <div id="header">
+            <h2 style="margin-left: 15%">Welcome to Green Communications</h2>
+            <h:outputText styleClass="loginInfo">Logged in as someone</h:outputText>
+        </div>
+
+        <div id="wrapper">
+
+            <div id="verticleTimeline"/>
+            
+            <h:form>            
+                <h:dataTable var="message" value="#{MessageManager.newMessage}" styleClass="timeline">
+                    <h:column>
+                        <p:outputPanel styleClass="#{MessageManager.getMessageClass(message)}">
+                        <h:panelGrid columns="2" cellpadding="5" >
+                            <h:inputTextarea value="#{message.text}" styleClass="newMessageInput"></h:inputTextarea>
+                            <h:commandButton value="Post" action="#{MessageManager.save(message)}" styleClass="postButton"/>
+                            <h:commandButton value="Add Image" action="#{MessageManager.uploadImage(message)}" styleClass="imageButton"/>
+                            <h:commandButton value="Upload File" action="#{MessageManager.uploadFile(message)}" styleClass="fileButton"/>
+                        </h:panelGrid>
+                        </p:outputPanel>
+                    </h:column>
+
+                </h:dataTable>
+            </h:form>
+            
+            <h:form>
+                <h:dataTable value="#{MessageManager.messageList}" var="message" styleClass="timeline" columnClasses="reg, timeStamp">
+
+                    <h:column>
+                        <p:outputPanel styleClass="#{MessageManager.getMessageClass(message)}">
+                            <h:panelGrid columns="2" cellpadding="5">                            
+                                <h:outputText value="#{message.text}"/>
+                            </h:panelGrid>
+                        </p:outputPanel>                        
+                    </h:column>
+                    
+<!--                    <h:column>
+                        <h:panelGroup layout="block" style="height: 2px; width: 200px; z-index: 99; margin-left: -110%; margin-top: 10%; background: black; float: left; position: relative;"/>
+                    </h:column>-->
+                </h:dataTable>
+
+            </h:form>
+            
+        </div>
+        <!-- /////////////////////////////// END WRAPPER /////////////////////////////////////////// -->
+        
+<!--<script>
+    jQuery(document).ready(function(){
+        scrollBottom();
+    });
+</script>-->
+    </h:body>
+</html>
+
