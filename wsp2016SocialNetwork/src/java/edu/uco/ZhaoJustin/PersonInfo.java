@@ -7,6 +7,10 @@ public class PersonInfo {
     private String userName;
     private String personName;
     private String password;
+    
+    public PersonInfo(){
+        personID = 0;
+    }
 
     public int getPersonID() {
         return personID;
