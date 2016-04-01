@@ -26,6 +26,8 @@ public class LoginBean implements Serializable {
     @Resource(name="jdbc/db1")
     private DataSource ds;
     
+    boolean check;
+    
     @PostConstruct
     public void init(){
         personInfo = new PersonInfo();
@@ -71,9 +73,7 @@ public class LoginBean implements Serializable {
     public void setListPersonInfo(List<PersonInfo> listPersonInfo) {
         this.listPersonInfo = listPersonInfo;
     }
-    
-    
-    
+        
     public void addToListPInfo() throws SQLException{
         if (ds == null) {
             throw new SQLException("ds is null; Can't get data source");
@@ -94,12 +94,12 @@ public class LoginBean implements Serializable {
             while (result.next()) {
                 PersonInfo p = new PersonInfo();
                 p.setPersonID(result.getInt("PID"));
-                System.out.println("Pid: " + result.getInt("PID"));
-                p.setPersonName(result.getString("USERNAME"));
+                //System.out.println("Pid: " + result.getInt("PID"));
+                p.setUserName(result.getString("USERNAME"));
                 p.setPassword(result.getString("PASSWORD"));
                 
                 checkDuplicateAndAdd(p);
-                
+                System.out.println("Check PID from list: " + listPersonInfo.get(0).getPersonID());
             }
         }
         finally {
@@ -123,22 +123,27 @@ public class LoginBean implements Serializable {
     }
     
     public String pressLoginButton() throws SQLException{
-        //addToListPInfo();
-        //CheckPasswordAndUserName();
-        if(personInfo.getPassword().equalsIgnoreCase("password")){
-            return "Home.xhtml";
+
+        addToListPInfo();
+        CheckPasswordAndUserName();
+        if(CheckPasswordAndUserName()){
+            return "MainPage.xhtml";
+
+
         }
         else return "index.xhtml";
         
     }
     
     public boolean CheckPasswordAndUserName(){
-        boolean check = false;
+        check = false;
+
         for (PersonInfo pList : listPersonInfo) {
             if(pList.getUserName().equalsIgnoreCase(personInfo.getUserName()) &&
                     pList.getPassword().equals(personInfo.getPassword())){
             
                 check = true;
+                System.out.println("Check: " + check);
                 break;
             }
             
@@ -146,32 +151,5 @@ public class LoginBean implements Serializable {
         
         return check;
     }
-
-//    public void insertToPersonalInfoDB() throws SQLException{
-//    if(ds == null){
-//        throw new SQLException("Can't get data source");
-//    }
-//    
-//    Connection conn = ds.getConnection();
-//        if (conn == null) {
-//            throw new SQLException("Cannot get connection");
-//        }
-//        
-//        try{
-//            PreparedStatement ps = conn.prepareStatement("Insert into PERSONWSPFINAL(PID, USERNAME, PASSWORD)"
-//                        + "VALUES(?,?,?,?)");
-//            
-//            ps.setString(1, personInfo.getTitle());
-//            ps.setString(2, book.getAuthor());
-//            ps.setDouble(3, book.getPrice());
-//            ps.setInt(4, book.getPublication());
-//            
-//            ps.executeUpdate();
-//        }
-//        finally {
-//            conn.close();
-//        }
-        
-//}
     
 }
