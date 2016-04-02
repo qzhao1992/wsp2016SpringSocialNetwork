@@ -127,7 +127,7 @@ public class LoginBean implements Serializable {
         addToListPInfo();
         CheckPasswordAndUserName();
         if(CheckPasswordAndUserName()){
-            return "MainPage.xhtml";
+            return "Home.xhtml";
 
 
         }
