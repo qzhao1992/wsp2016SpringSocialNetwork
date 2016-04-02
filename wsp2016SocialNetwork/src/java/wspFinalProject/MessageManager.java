@@ -14,7 +14,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.sql.DataSource;
 import wspFinalProject.Message.MessageType;
-// Hello, I'm a comment.
+
 /**
  *
  * @author justin.hampton
