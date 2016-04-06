@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="styles" name="wspFinalQZ.css"/>
+        <style>
+            .solidGrayBorder {
+            
+            width: 320px;
+            padding: 10px;
+            border: 3px ridge #4CAF50;
+            margin: 0;
+            }
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 8px 18px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+            
+            .button1 {
+                background-color: #74c8f2;
+                color: white;
+                border: 2px solid #74c8f2;
+            }
+
+            .button1:hover {
+                background-color: white; 
+                color: black;
+                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+            }
+        </style>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <div align="center">
+        <div  class="solidGrayBorder" align="center">
+            <div align="center" style="color:#4CAF50" margin="0" > <h2>New user</h2></div>
+                <h:form id="formRegist">
+                    <h:panelGrid columns="3" style="margin: 0 auto" bgcolor="#4CAF50">
+                        <div style="color:white" align='center' >
+                            Title:
+                        </div>
+                        <h:inputText id="userName" value="#{registeBean.RGPersonInfoUserName}"
+                             required="true"
+                             requiredMessage="You must enter a user name"
+                             validator="#{registeBean.validateRGUserName}"/>
+                        <h:message for="userName" styleClass="RegisteError" />
+                
+                
+                        <div style="color:white" align='center' >
+                            Password:
+                        </div>
+                        <h:inputSecret id="password" value="#{registeBean.RGPersonInfoPassword}"
+                             required="true"
+                             requiredMessage="You must enter a Password"
+                             validator="#{registeBean.validateRGPassword}"/>
+                        <h:message for="password" styleClass="RegisteError" />
+                
+                        <h:commandButton action="#{registeBean.pressRegisteButton()}" value="Registe"
+                                 class="button button1"/>
+                
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+

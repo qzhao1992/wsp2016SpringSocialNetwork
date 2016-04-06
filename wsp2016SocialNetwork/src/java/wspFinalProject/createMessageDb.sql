@@ -6,6 +6,7 @@ create table Message(
     id INT NOT NULL AUTO_INCREMENT,
     type INT,
     text VARCHAR(200),
+    date TIMESTAMP,
     primary key(id)
 );
 

@@ -41,8 +41,8 @@
 
                     <h:column>
                         <p:outputPanel styleClass="#{MessageManager.getMessageClass(message)}">
-                            <h:panelGrid columns="2" cellpadding="5">                            
-                                <h:outputText value="#{message.text}"/>
+                            <h:panelGrid columns="2" cellpadding="15">                            
+                                <h:outputText value="#{message.text}" styleClass="messageText"/>
                             </h:panelGrid>
                         </p:outputPanel>                        
                     </h:column>
