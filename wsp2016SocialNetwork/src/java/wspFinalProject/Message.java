@@ -1,5 +1,7 @@
 package wspFinalProject;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author justin.hampton
@@ -22,17 +24,17 @@ public class Message {
     private MessageType type;
     private String text;
     private int id;
+    private Timestamp date;
     
     public Message(){
-        type = MessageType.TEXT;
-        text = "";
-        id = 0;
+        this(0, MessageType.TEXT, "", new Timestamp(System.currentTimeMillis()));
     }//end constructor
 
-    public Message(int id, MessageType type, String text){
+    public Message(int id, MessageType type, String text, Timestamp date){
         this.id = id;
         this.type = type;
         this.text = text;
+        this.date = date;
     }
     
     public String getType() {
@@ -77,6 +79,20 @@ public class Message {
         this.id = id;
     }
     
+    public Timestamp getDate(){
+        return date;
+    }
     
+    public void setDate(Timestamp date){
+        this.date = date;
+    }
+    
+    public boolean isFile(){
+        return type == MessageType.FILE;
+    }
+    
+    public boolean isImage(){
+        return type == MessageType.IMAGE;
+    }
     
 }//end Message

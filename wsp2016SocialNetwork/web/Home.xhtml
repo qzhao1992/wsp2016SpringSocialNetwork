@@ -11,57 +11,71 @@
         <h:outputScript library="scripts" name="wspFinal.js"/>
     </h:head>
     <h:body>
-        <div id="header">
-            <h2 style="margin-left: 15%">Welcome to Green Communications</h2>
-            <h:outputText styleClass="loginInfo">Logged in as someone</h:outputText>
-        </div>
+        <h:panelGroup layout="block" id="header">
+            <h:panelGroup layout="block" styleClass="headerLeft"><h2>Welcome to Green Communications</h2></h:panelGroup>
+
+            <h:panelGroup layout="block" id="controlDiv" styleClass="headerCenter">
+                <h:form onsubmit="#{MessageManager.updateFilter()}">
+                    <h:selectOneMenu id="filterMenu" value="#{MessageManager.descendDate}" styleClass="filterMenu" onchange="submit()">
+                        <f:selectItem itemLabel="Date Descending" itemValue="#{true}" />
+                        <f:selectItem itemLabel="Date Ascending" itemValue="#{false}" />
+                    </h:selectOneMenu>
+                </h:form>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="headerRight"><h:outputText styleClass="loginInfo" value="Logged in as someone"/></h:panelGroup>
+        </h:panelGroup>
 
         <div id="wrapper">
 
             <div id="verticleTimeline"/>
-            
-            <h:form>            
-                <h:dataTable var="message" value="#{MessageManager.newMessage}" styleClass="timeline">
+
+            <p:outputPanel styleClass="newMessagePanel">
+                <h:form id="messageForm">
+                    <h:panelGrid columns="2" cellpadding="5" >
+                        <h:inputTextarea value="#{MessageManager.newMessage.text}" styleClass="newMessageInput"></h:inputTextarea>
+                        <h:commandButton value="Post" action="#{MessageManager.save()}" styleClass="postButton"/>
+                    </h:panelGrid>
+                </h:form>
+
+                <h:form id="uploadForm" enctype="multipart/form-data">
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <h:inputFile id="file" label="file" value="#{MessageManager.part}" validator="#{MessageManager.validateFile}" />
+                        <h:commandButton id="upload" action="#{MessageManager.uploadFile}" value="upload file" styleClass="fileButton"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:outputPanel>
+
+            <h:form>
+                <h:dataTable id="messageList" value="#{MessageManager.messageList}" var="message" styleClass="timeline" columnClasses="reg, timeStamp">
+
                     <h:column>
                         <p:outputPanel styleClass="#{MessageManager.getMessageClass(message)}">
-                        <h:panelGrid columns="2" cellpadding="5" >
-                            <h:inputTextarea value="#{message.text}" styleClass="newMessageInput"></h:inputTextarea>
-                            <h:commandButton value="Post" action="#{MessageManager.save(message)}" styleClass="postButton"/>
-                            <h:commandButton value="Add Image" action="#{MessageManager.uploadImage(message)}" styleClass="imageButton"/>
-                            <h:commandButton value="Upload File" action="#{MessageManager.uploadFile(message)}" styleClass="fileButton"/>
-                        </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="15">
+
+                                <h:outputText value="#{message.text}" styleClass="messageText" rendered="#{not message.isFile()}"/>
+
+                                <h:panelGroup layout="block" rendered="#{message.isFile()}" styleClass="downloadDiv">
+                                    <h:commandLink action="#{MessageManager.downloadFile(message.id)}" styleClass="downloadLinkText">
+                                        <h:graphicImage library="images" name="download.png" width="20" height="20" styleClass="downloadIcon"/>
+                                        <h:outputText id="download" value="#{message.text}" />
+                                    </h:commandLink>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" rendered="#{message.isImage()}" styleClass="image">
+                                    <image src="ImageServlet?fileid=#{message.id}" height="70" width="100" />
+                                </h:panelGroup>
+                            </h:panelGrid>
                         </p:outputPanel>
                     </h:column>
 
                 </h:dataTable>
-            </h:form>
-            
-            <h:form>
-                <h:dataTable value="#{MessageManager.messageList}" var="message" styleClass="timeline" columnClasses="reg, timeStamp">
-
-                    <h:column>
-                        <p:outputPanel styleClass="#{MessageManager.getMessageClass(message)}">
-                            <h:panelGrid columns="2" cellpadding="5">                            
-                                <h:outputText value="#{message.text}"/>
-                            </h:panelGrid>
-                        </p:outputPanel>                        
-                    </h:column>
-                    
-<!--                    <h:column>
-                        <h:panelGroup layout="block" style="height: 2px; width: 200px; z-index: 99; margin-left: -110%; margin-top: 10%; background: black; float: left; position: relative;"/>
-                    </h:column>-->
-                </h:dataTable>
 
             </h:form>
-            
+
         </div>
         <!-- /////////////////////////////// END WRAPPER /////////////////////////////////////////// -->
-        
-<!--<script>
-    jQuery(document).ready(function(){
-        scrollBottom();
-    });
-</script>-->
+
     </h:body>
 </html>
 
